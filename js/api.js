@@ -3,7 +3,7 @@
    All calls to your Spring Boot backend go through here.
    Change API_BASE if your backend runs on a different host/port.
    ========================================================================== */
-const API_BASE = 'http://localhost:8080';
+const API_BASE = 'https://cherry-backend-v0u7.onrender.com';
 
 const TOKEN_KEY = 'cherry_token';
 const USER_KEY  = 'cherry_user';
