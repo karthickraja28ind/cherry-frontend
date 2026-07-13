@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · Cherry</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="admin">
+
+<div class="app-shell">
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
+    <div class="topbar" id="topbar-root"></div>
+
+    <main class="main main-wide">
+      <div class="main-inner">
+        <div class="page-head">
+          <div>
+            <h1>Admin</h1>
+            <span class="sub">Manage users, insights and comments</span>
+          </div>
+          <span class="badge badge-blue">Admin tools</span>
+        </div>
+
+        <div class="card card-pad mt-2">
+          <h3 style="font-size:15px;margin-bottom:4px;">Remove content by ID</h3>
+          <p class="text-sm text-muted">The admin API removes a specific insight or comment directly by its ID.</p>
+          <div style="display:flex; gap:24px; margin-top:16px; flex-wrap:wrap;">
+            <form id="delete-post-form" style="display:flex; gap:8px;">
+              <input type="text" id="delete-post-id" placeholder="Insight ID" style="width:140px;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);">
+              <button class="btn btn-danger btn-sm" type="submit">Delete insight</button>
+            </form>
+            <form id="delete-comment-form" style="display:flex; gap:8px;">
+              <input type="text" id="delete-comment-id" placeholder="Comment ID" style="width:140px;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);">
+              <button class="btn btn-danger btn-sm" type="submit">Delete comment</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card mt-2">
+          <div class="card-pad" style="padding-bottom:0;">
+            <h3 style="font-size:15px;">Recent insights</h3>
+            <p class="text-sm text-muted">Each row shows its ID directly — click Delete to remove it, no typing required.</p>
+            <div class="search-box mt-1" style="max-width:280px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="admin-insight-search" placeholder="Filter insights…">
+            </div>
+          </div>
+          <div id="admin-insights-list" class="card-pad" style="padding-top:8px;"></div>
+        </div>
+
+        <div class="card mt-2">
+          <div class="card-pad" style="padding-bottom:0;">
+            <h3 style="font-size:15px;">All comments</h3>
+            <p class="text-sm text-muted">Every comment across every insight — click Delete to remove one.</p>
+            <div class="search-box mt-1" style="max-width:280px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="admin-comment-search" placeholder="Filter comments…">
+            </div>
+          </div>
+          <div id="admin-comments-list" class="card-pad" style="padding-top:8px;"></div>
+        </div>
+
+        <div class="card mt-2">
+          <div class="card-pad" style="padding-bottom:0;">
+            <h3 style="font-size:15px;">All users</h3>
+            <div class="search-box mt-1" style="max-width:280px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="admin-user-search" placeholder="Filter users…">
+            </div>
+          </div>
+          <div id="admin-users-list" class="card-pad" style="padding-top:8px;"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
+<script src="js/globalsearch.js"></script>
+<script src="js/userrow.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

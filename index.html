@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in · Cherry</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth-shell">
+  <div class="auth-brand">
+    <div class="logo">
+      <span class="logo-word">Cherry</span>
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 6c-1.5 2-2 4-2 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M20 6c2-1.3 4-1.6 5.5-1" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="12" cy="21" r="7" fill="white"/>
+        <circle cx="22" cy="19" r="6" fill="rgba(255,255,255,0.55)"/>
+      </svg>
+    </div>
+    <div class="auth-brand-copy">
+      <h1>Where the world learns together.</h1>
+      <p>Share, follow, comment and bookmark — all in one clean, fast timeline built for everyone, everywhere.</p>
+    </div>
+    <div class="auth-brand-foot">© 2026 Cherry</div>
+  </div>
+
+  <div class="auth-form-wrap">
+    <form class="auth-form" id="login-form" novalidate>
+      <h2>Welcome back</h2>
+      <span class="sub">Sign in to keep going.</span>
+
+      <div class="field" id="f-username">
+        <label for="username">Username</label>
+        <input type="text" id="username" autocomplete="username" placeholder="e.g. sam_writes" required>
+        <div class="field-error">Enter your username.</div>
+      </div>
+
+      <div class="field" id="f-password">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" placeholder="••••••••" required>
+        <div class="field-error">Enter your password.</div>
+      </div>
+
+      <button class="btn btn-primary btn-block" type="submit" id="login-btn">Sign in</button>
+
+      <div class="auth-switch">New to Cherry? <a href="signup.html">Create an account</a></div>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  redirectIfAuthed();
+
+  const params = new URLSearchParams(location.search);
+  if (params.get('expired')) toastError('Your session expired. Please sign in again.');
+  if (params.get('signedup')) toastSuccess('Account created — sign in to continue.');
+
+  const form = document.getElementById('login-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+
+    let ok = true;
+    document.getElementById('f-username').classList.toggle('has-error', !username); if(!username) ok=false;
+    document.getElementById('f-password').classList.toggle('has-error', !password); if(!password) ok=false;
+    if (!ok) return;
+
+    const btn = document.getElementById('login-btn');
+    btn.disabled = true; btn.textContent = 'Signing in…';
+    try{
+      await doLogin(username, password);
+      toastSuccess('Welcome back!');
+      location.href = 'home.html';
+    }catch(err){
+      toastError(err.message || 'Could not sign in.');
+      btn.disabled = false; btn.textContent = 'Sign in';
+    }
+  });
+</script>
+</body>
+</html>
